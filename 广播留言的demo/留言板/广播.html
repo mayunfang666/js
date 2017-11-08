@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{list-style: none;padding: 0;margin: 0px;outline-style: none;}
+	#wrap{width: 600px;margin: 20px auto;border:1px solid #ccc;border-radius: 5px;border-bottom: none;background: #f3f5f8;}
+	h1{line-height: 50px;margin-left: 25px;font-size: 25px;font-weight:normal;}
+	#tops{width: 600px;border-radius: 5px;}
+	#tops input{border:1px solid #ccc;}
+	#tops input,ul{float: left;line-height: 20px;margin-left: 10px;}
+	#tops ul li{float: left;width: 25px;height: 25px;margin-right: 10px;border-radius: 5px; }
+	#tops ul li img{width: 25px;height: 25px;border-radius: 5px;}
+	textarea{margin-top: 15px;margin-left: 10px;}
+	#bottoms{width: 600px;font-size: 15px;height: 25px;margin-top: 10px;}
+	#bottoms span,button{float: right;margin-right: 10px;}
+	#bottoms button{width: 80px;height: 25px;background: skyblue;border:none;border-radius: 5px;}
+	#bottoms b{color: red;}
+	#tobs{width: 580px;margin:0px 10px;background: #ccc;height: 25px;padding-top: 10px;margin-top: 10px;}
+	#tobs p{font-size: 15px;display: block;background: #fff;width: 80px;margin-left: 18px;height: 25px;text-align: center;line-height: 25px;}
+	.foots{width: 570px;margin:0px 15px;margin-top: 15px;height: 80px;/* background: #eee; */padding-top: 15px;position: relative;border-bottom: 1px #ccc dashed;}
+	.foots dl dt img{border-radius: 5px;}
+	.foots dl dt,dd{float: left;padding-left: 10px;}
+	.foots button{position: absolute;top: 40px;right: 0px;border:none;font-size: 18px;background: #eee;display: none;}
+	.foots dl dd p{line-height: 20px;font-size: 14px;}
+	</style>
+</head>
+<body>
+<div id="wrap">
+	<h1>请留言</h1>
+	<div id="tops">
+	<input type="text" id="texts">
+	<ul>
+		<li><img src="01.png" alt=""></li>
+		<li><img src="02.png" alt=""></li>
+		<li><img src="03.png" alt=""></li>
+		<li><img src="04.png" alt=""></li>
+		<li><img src="05.png" alt=""></li>
+		<li><img src="01.png" alt=""></li>
+		<li><img src="02.png" alt=""></li>
+		<li><img src="03.png" alt=""></li>
+	</ul>
+	</div>
+	<textarea name="" id="Txt" cols="80" rows="8"></textarea>
+	<div id="bottoms"><button>广播</button><span>还可输入<b>150</b></span></div>
+	<div id="tobs"><p>大家在说</p></div>
+	<!-- <div class="foots">
+		<dl>
+			<dt><img src="01.png" alt=""></dt>
+			<dd>
+			<p>按时发生</p>
+			<p>2017.10.11</p>
+			</dd>
+		</dl>
+		<button>删除</button>
+	</div> -->
+</div>
+	<script>
+	var Username=function(){
+		this.wrap=document.getElementById("wrap");
+		this.texts=document.getElementById("texts");
+		this.Txt=document.getElementById("Txt");
+		this.lis=document.getElementsByTagName("li");
+		this.btn=document.getElementById("bottoms").getElementsByTagName("button")[0];
+		this.span=document.getElementById("bottoms").getElementsByTagName("span")[0];
+		this.img="";
+		this.times="";
+		this.onmous();
+		this.lisclick();
+		this.nones();
+		this.lis[0].style.opacity="1";
+		this.time();
+		this.bindevent();
+	}
+	Username.prototype={
+		bindevent:function(){
+			var that=this;
+			this.btn.onclick=function(){
+				var str="";
+				var newdivs=document.createElement("div");
+				if(that.texts.value!="" && that.Txt.value!="" && that.img!=""){
+					str='<dl><dt><img src='+that.img+' alt=""></dt><dd><p>'+that.texts.value+':'+that.Txt.value+'</p><p>'+that.times+'</p></dd></dl><button>删除</button>';
+				newdivs.className="foots";
+				newdivs.innerHTML=str;
+				that.wrap.appendChild(newdivs)
+				that.mover(newdivs);
+				that.remove(newdivs.getElementsByTagName("button")[0]);
+				}
+				
+			}
+		},
+		nones:function(){
+			for(var i=0;i<this.lis.length;i++){
+				this.lis[i].style.opacity="0.5";
+			}
+		},
+		lisclick:function(){
+			var that=this;
+			for(var i=0;i<this.lis.length;i++){
+				this.lis[i].onclick=function(){
+					that.img="";
+					that.nones();
+					this.style.opacity="1";
+					that.img=this.getElementsByTagName("img")[0].src;
+					console.log(that.img)
+				}
+			}
+		},
+		mover:function(newdivs){
+			newdivs.onmouseover=function(){
+				this.style.background="#eee";
+				this.getElementsByTagName("button")[0].style.display="block";
+				//console.log(this.getElementsByTagName("button")[0])
+			}
+			newdivs.onmouseout=function(){
+				this.style.background="";
+				this.getElementsByTagName("button")[0].style.display="none";
+			}
+		},
+		onmous:function(){
+			var that=this;
+			this.Txt.onkeyup=function(){
+				var nums=150-this.value.length;
+				console.log(this.length)
+				document.getElementById("bottoms").getElementsByTagName("span")[0].innerHTML="还可以输入"+nums+"字";
+			}
+		},
+		remove:function(btn){
+			var that=this;
+			btn.onclick=function(){
+				that.wrap.removeChild(this.parentNode);
+			}
+		},
+		time:function(){
+			var date=new Date();
+			var mon=date.getUTCMonth()+1;
+		
+			this.times="0"+mon+"月"+date.getUTCDate()+"日"+"  "+date.getHours()+":"+date.getMinutes();
+				//console.log(this.times)
+		}
+	}
+	new Username();
+	</script>
+</body>
+</html>

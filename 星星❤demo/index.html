@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+		/
+	</style>
+</head>
+<body>
+	<div id="pic">
+	<p>点击星星评分</p>
+		
+		<img src="img/1.gif" alt="">
+		<img src="img/1.gif" alt="">
+		<img src="img/1.gif" alt="">
+		<img src="img/1.gif" alt="">
+		<img src="img/1.gif" alt="">
+		
+		<!-- <ol>
+			<li><b>1分 很不满意</b><br>差得太离谱。与卖家描述的严重不符，非常不满。</li>
+			<li><b>2分 不满意</b><br>部分有破损，与卖家描述不符，不满意</li>
+			<li><b>3分 一般</b><br>质量一般。没有买家描述的那么嗨。</li>
+			<li><b>4分 满意</b><br>质量不错，与卖家描述的基本一致还是挺满意的</li>
+			<li><b>5分 非常满意</b><br>质量非常好，与卖家描述的完全一致，非常满意</li>
+		</ol> -->
+
+			<h4></h4>
+			<h6></h6>
+	
+	</div>
+	<script>
+		var imgs=document.getElementsByTagName("img"),
+			info=document.getElementById("info"),
+			h1s=document.getElementsByTagName("h4"),
+			ps=document.getElementsByTagName("h6");
+		var obj={
+			data:[
+			      {title:"1分 很不满意",content:"差得太离谱。与卖家描述的严重不符，非常不满"},
+			      {title:"2分 不满意",content:"部分有破损，与卖家描述不符，不满意"},
+			      {title:"3分 一般",content:"质量一般。没有买家描述的那么嗨"},
+			      {title:"4分 满意",content:"质量不错，与卖家描述的基本一致还是挺满意的"},
+			      {title:"5分 非常满意",content:"质量非常好，与卖家描述的完全一致，非常满意。"}
+			      ]
+	        	};
+	        	// console.log(obj.data[0].title)
+		for(var i=0;i<imgs.length;i++){
+			imgs[i].index=i;
+			imgs[i].onmouseover=function(){
+				for(var j=0;j<=this.index;j++){
+					imgs[j].src="img/2.gif"
+				}
+				for(var j=this.index+1;j<imgs.length;j++){
+					imgs[j].src="img/1.gif"
+				}
+				console.log(h1s[0])//.innerHTML=obj.data[this.index].title;
+				console.log(obj.data[this.index].title)
+				//ps[0].innerHTML=obj.data[this.index].content;
+				h1s[0].innerHTML=obj.data[this.index].title;
+				ps[0].innerHTML=obj.data[this.index].content;
+			}
+		}
+	 // if(window.XMLHttpRequest){
+  // 	var xhr=new XMLHttpRequest();
+  // }else{
+  // 	var xhr=new ActiveXObject("Microsoft.XMLHTTP")
+  // }
+  //  xhr.open("get","js/data.json",true)
+  // xhr.send(null)
+  // xhr.onreadystatechange=function(){
+  // 	if(xhr.readyState == 4 && xhr.status==200){
+  // 		var obj=JSON.parse(xhr.responseText)
+  // 		console.log(obj)
+  // 		console.log(obj.lists[0].title)
+  // 	}
+  // }
+	</script>
+</body>
+</html>

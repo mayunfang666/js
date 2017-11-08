@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js" ></script>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="chuangliang">
+				<img src="img/chuanglian_01.png" class="left" />
+				<img src="img/chuanglian_03.png"  class="right"  />
+			</div>
+			<div class="main">
+				<img src="img/houzi_03.png" class="houzi"  />
+				<div class="tv_box">
+					<img src="img/tv_03.png" />
+					<div class="wen">中奖姓名</div>
+					<a href="javascript:;" class="btn_play"></a>
+					<a href="javascript:;" class="btn_stop"></a>
+				</div>
+				<img src="img/tai_03.png"  class="wutai" />
+			</div>
+		</div>
+
+		<!--中奖弹框，自己写样式,写主题内容-->
+		<div id="drawnBox">
+			<div id="pic"></div>
+			<p></p>
+		</div>
+		<script>
+
+		/**熟悉拷贝方法**/
+		var extend = function (target, opts) {
+			for (var  key in opts) {
+				target[key] = opts[key];
+			}
+			return target;
+		};
+		//封装class方法
+			function getClass(ele){
+				var doms=document.getElementsByTagName("*"),
+					reg=new RegExp("\\b"+ele+"\\b","g"),
+					temp=[];
+				for(var i=0;i<doms.length;i++){
+					if(reg.test(doms[i].className)){
+						temp.push(doms[i])
+					}
+				}
+				return temp
+			}
+		var luckDraw = function(opts){
+
+			this.settings = {
+				//抽奖用户列表
+				userArray : [
+					{"name" : "小王","avatar":"img/91.jpg"},
+					{"name" : "小杨","avatar":"img/92.jpg"},
+					{"name" : "小李","avatar":"img/93.jpg"}
+				],
+
+				drawnList : [] //中奖用户列表
+			}
+			this.time =null; //定时器名称
+			extend(this.settings, opts)
+
+			this.init();
+			this.play();
+			this.stop();
+
+		}
+		luckDraw.prototype = {
+
+			//初始化方法
+			init : function(){
+				this.addEvent();
+				this.plays=getClass("btn_play")[0];
+				this.stops=getClass("btn_stop")[0];
+				this.drawnBox=document.getElementById("drawnBox");
+				this.wen=getClass("wen")[0];
+				this.pic=document.getElementById("pic");
+			},
+
+			/**
+				更具最大值最小值获取随机数
+			**/
+			RandomNum : function(Min,Max){
+
+			},
+
+			/**
+				获取单个用户方法
+			**/
+			getUser : function(){
+				var arr=[];
+				for(var i=0;i<this.settings.userArray.length;i++){
+					arr.push(this.settings.userArray[i].name)
+				}
+				return arr;
+			},
+
+			/**
+				页面显示随机用户方法
+			**/
+			render : function(){
+
+			},
+
+			/**
+				停止方法
+			**/
+			stop : function(){
+				var that=this;
+				this.stops.onclick=function(){
+					clearInterval(that.time);
+					that.drawn(that.wen.innerHTML);
+					this.style.display="none";
+					that.plays.style.display="block";
+				}
+			},
+
+			/**
+				开始方法
+			**/
+			play : function(){
+				var that=this;
+				var count=0;
+				this.plays.onclick=function(){
+					//console.log(that.getUser());
+					that.time=setInterval(function(){
+						count++;
+						if(count>that.getUser().length-1)count=0;
+						that.wen.innerHTML=that.getUser()[count];
+					},200);
+					this.style.display="none";
+					that.stops.style.display="block";
+				}
+			},
+
+			/**
+				单次中奖完成方法  弹出中奖弹框 并且3秒后自动关闭
+			**/
+			drawn  : function(attr){
+				this.drawnBox.getElementsByTagName("p")[0].innerHTML="恭喜"+attr+"同学中奖了";
+				this.pic.innerHTML="";
+				for(var j=0;j<this.settings.userArray.length;j++){
+					if(attr==this.settings.userArray[j].name){
+						
+						var img=document.createElement("img");
+						img.src=this.settings.userArray[j].avatar;
+						this.pic.appendChild(img)
+					}
+				}
+				this.drawnBox.style.display="block";
+				setTimeout(function(){
+					this.drawnBox.style.display="none";
+				},3000)
+			},
+
+			/**
+				事件集合方法
+			**/
+			addEvent : function(){
+
+			}
+
+
+
+		}
+		var o=new luckDraw();
+
+		</script>
+	</body>
+</html>

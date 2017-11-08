@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+       <div id="box">
+        <div class="wrap" id="wrap">
+	  	    <ul class="list" id="list">
+	  	    	  <li>1F<span>-副食百货</span></li>
+	  	    	  <li>2F<span>-至尊男鞋</span></li>
+	  	    	  <li>3F<span>-精美女装</span></li>
+	  	    	  <li>4F<span>-电动游戏</span></li>
+	  	    	  <li>5F<span>-优雅餐厅</span></li>
+	  	    	  <li>6F<span>-商务会谈</span></li>
+	  	    </ul>
+	  	    <div class="return" id="return">
+	  	    	∧
+	  	    </div>
+	    </div>
+
+	    <div class="floor" id="floor">
+			  <div class="f1" style="height:900px;">
+			  	 F1
+			  </div>
+			   <div class="f2" style="height:500px;">
+			  	F2
+			  </div>
+			   <div class="f3" style="height:700px;">
+			  	F3
+			  </div>
+			   <div class="f4" style="height:780px;">
+			  	 F4
+			  </div>
+			  <div class="f5" style="height:650px;">
+			  	 F5
+			  </div>
+			  <div class="f6" style="height:880px;">
+			  	F6
+			  </div>
+		  </div>
+	</div>
+
+	<!-- <script src="js/jquery.js"></script>
+	<script>
+
+	   $(document).ready(function(){
+
+	   	  var  arr=[];
+          $("#floor div").each(function(){
+	   	  	  	arr.push($(this).offset().top)
+	   	  });
+	   	  
+	   	  $(window).on("scroll",function(){
+
+	   	  	  var top=$(this).scrollTop();
+
+	   	  	  $.each(arr,function(i,val){
+	   	  	  	if(top>=val){
+	   	  	  		$("#list li").eq(i).stop().animate({"margin-left":0}).children("span").show().end().siblings().stop().animate({"margin-left":100}).children("span").hide();
+	   	  	  	}
+	   	  	  })
+
+	   	  	  if(top>300){
+	   	  	  	$("#wrap").show();
+	   	  	  }else{
+	   	  	  	$("#wrap").hide();
+	   	  	  }
+
+	   	  });
+
+	   	  $("#list li").on("click",function(){
+	   	  	 var  ind=$(this).index();
+	   	  	 $("body").stop().animate({"scrollTop":arr[ind]})
+	   	  });
+
+	   	  $("#return").on("click",function(){
+	   	  	$("body").stop().animate({"scrollTop":0})
+	   	  })
+	   });
+
+	   
+	</script> -->
+	<script>
+	//面向过程
+		
+		// var list=document.getElementById("list"),
+		// 	lis=list.getElementsByTagName("li"),
+		// 	floor=document.getElementById("floor"),
+		// 	divs=floor.getElementsByTagName("div"),
+		// 	arr=[];
+		// 	console.log(lis);
+		// 	for(var i=0;i<divs.length;i++){
+		// 		arr.push(divs[i].offsetTop);
+		// 	}
+		// 	console.log(arr)
+		// 	for(var i=0;i<lis.length;i++){
+		// 		lis[i].index=i;
+		// 		lis[i].onclick=function(){
+		// 			document.body.scrollTop=arr[this.index];
+		// 			document.documentElement.scrollTop=arr[this.index]
+		// 			hideall(lis);
+		// 			this.className="bg";
+		// 			this.getElementsByTagName("span")[0].style.display="inline-block";
+		// 		}
+		// 	}
+		// 	window.onscroll=function(){
+		// 		var stop=document.documentElement.scrollTop || document.body.scrollTop;
+		// 		for(var i in arr){
+		// 			if(stop>arr[i]){
+		// 				hideall(lis);
+		// 				lis[i].className="bg";
+		// 				lis[i].getElementsByTagName("span")[0].style.display="inline-block"
+		// 			}
+		// 		}
+		// 	}
+
+		// 	function hideall(elems){
+		// 		for(var i=0;i<elems.length;i++){
+		// 			elems[i].className="";
+		// 			elems[i].getElementsByTagName("span")[0].style.display="none";
+		// 		}
+		// 	}
+
+
+
+
+
+			//面向对象
+			function Scroll(){
+			   this.list=document.getElementById("list");
+			   this.lis=list.getElementsByTagName("li");
+			   this.floor=document.getElementById("floor");
+			   this.divs=floor.getElementsByTagName("div");
+			   this.arr=[];
+			   this.init();
+			   this.bindEvent();
+			   this.returns=document.getElementById("return");
+			   this.returna();
+			}
+			Scroll.prototype={
+				constructor:Scroll,
+				init:function(){
+					for(var i=0;i<this.divs.length;i++){
+				         this.arr.push(this.divs[i].offsetTop);
+			        }
+				},
+				bindEvent:function(){
+					this.clickli();
+					this.scrolls();
+				},
+				clickli:function(){
+					var that=this;
+					for(var i=0;i<this.lis.length-1;i++){
+						this.lis[i].index=i;
+						this.lis[i].onclick=function(){
+							document.body.scrollTop=that.arr[this.index];
+							document.documentElement.scrollTop=that.arr[this.index]
+							that.hideall(that.lis);
+							this.className="bg";
+							this.getElementsByTagName("span")[0].style.display="inline-block";
+						}
+			        }
+				},
+				hideall:function(elems){
+				for(var i=0;i<elems.length;i++){
+					elems[i].className="";
+					elems[i].getElementsByTagName("span")[0].style.display="none";
+				    }
+				},
+				returna:function(){
+					this.returns.onclick=function(){
+						document.body.scrollTop=0;
+						document.documentElement.scrollTop=0;
+						
+					}
+				},
+				scrolls:function(){
+					var that=this;
+					window.onscroll=function(){
+					var stop=document.documentElement.scrollTop || document.body.scrollTop;
+					for(var i in that.arr){
+						if(stop>that.arr[i]){
+							that.hideall(that.lis);
+							that.lis[i].className="bg";
+							that.lis[i].getElementsByTagName("span")[0].style.display="inline-block"
+						}
+					}
+				}
+			}
+		}
+		new Scroll();
+	</script>
+</body>
+</html>

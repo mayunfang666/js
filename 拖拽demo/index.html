@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{
+			width: 100px;
+			height: 100px;
+			background: red;
+			position: absolute;
+			cursor: move;
+		}
+		#bigbox{
+			width: 600px;
+			height: 400px;
+			border:1px solid #000;
+			margin:40px auto;
+			position: relative;
+		}
+	</style>7
+</head>
+<body>
+<div id="bigbox">
+	<div id="box"></div>
+	</div>
+	<script>
+		// var box=document.getElementById("box");
+		// var bigbox=document.getElementById("bigbox");
+		// 	box.onmousedown=function(e){
+		// 		var eve=e||window.event;
+		// 		var divx=eve.clientX-box.offsetLeft;
+		// 		var divy=eve.clientY-box.offsetTop;
+		// 		document.onmousemove=function(e){
+		// 			var event=e||window.event;
+		// 			var x=event.clientX-divx;
+		// 			var y=event.clientY-divy;
+		// 			var maxW=bigbox.offsetWidth-box.offsetWidth;
+		// 			var maxH=bigbox.offsetHeight-box.offsetWidth;
+		// 			if(x<0)x=0;
+		// 			if(y<0)y=0;
+		// 			if(x>maxW)x=maxW;
+		// 			if(y>maxH)y=maxH;
+		// 				box.style.left=x+"px";
+		// 				box.style.top=y+"px";
+					
+		// 		}
+		// 	}
+		// 	box.onmouseup=function(){
+		// 		document.onmousemove=null;
+		// 	}
+		function Drag(){
+			this.box=document.getElementById("box");
+			this.bigbox=document.getElementById("bigbox")
+			this.bindEvent();
+		}
+		Drag.prototype.bindEvent=function(){
+			this.mDown();
+			this.mUp();
+		}
+		Drag.prototype.mDown=function(){
+			var that=this;
+				this.box.onmousedown=function(e){
+				var eve=e||window.event;
+				var divx=eve.clientX-that.box.offsetLeft;
+				var divy=eve.clientY-that.box.offsetTop;
+				     that.mMove(divx,divy);
+				
+			}
+		}
+		Drag.prototype.mMove=function(x1,y1){
+			var that=this;
+			document.onmousemove=function(e){
+					var event=e||window.event;
+					var x=event.clientX-x1;
+					var y=event.clientY-y1;
+					var maxW=that.bigbox.offsetWidth-that.box.offsetWidth;
+					var maxH=that.bigbox.offsetHeight-that.box.offsetHeight;
+					if(x<0)x=0;
+					if(y<0)y=0;
+					if(x>maxW)x=maxW;
+					if(y>maxH)y=maxH;
+						that.box.style.left=x+"px";
+						that.box.style.top=y+"px";
+					
+				}
+		}
+		Drag.prototype.mUp=function(){
+			this.box.onmouseup=function(){
+				document.onmousemove=null;
+			}
+		}
+		new Drag();
+		
+	</script>
+</body>
+</html>

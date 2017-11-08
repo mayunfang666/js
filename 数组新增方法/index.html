@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr = [ 1,2,3,4,5,6,7 ];
+
+	// var ss = arr.forEach(function( value , index , arr ){
+
+	// 	console.log(index,value,arr)
+	// })
+	//
+	var forEach = function( arr,callback ){
+		for( var i=0; i<arr.length; i++ ){
+			callback( arr[i], i, arr )
+		}
+	}
+
+	forEach( arr,function( value, index, arr ){
+		console.log( value, index, arr )
+	} )
+
+	// var ss = arr.map(function( value , index , arr ){
+
+	// 	return value+100;
+	// })
+	//
+	//
+	// var ss = arr.filter(function( value , index , arr ){
+
+	// 	return value > 3;
+	// })
+	//
+	// var ss = arr.some(function( value , index , arr ){
+	// 	console.log( value )
+	// 	return value < 2;
+	// })
+	//
+	var ss = arr.reduce(function( oldVal , val , index, arr ){
+		console.log( oldVal , val );
+		return oldVal+val;
+	})
+	console.log(ss)
+	//console.log( ss )
+
+	</script>
+</body>
+</html>

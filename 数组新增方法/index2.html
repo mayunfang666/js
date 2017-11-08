@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			var arr=["a","b","c"];
+//			var forEach=function(arr,callback){
+//				for(var i=0;i<arr.length;i++){
+//					callback(arr[i],i,arr)
+//				}
+//			};
+//			forEach(arr,function(value,index,arr){
+//				console.log(value,index,arr)
+//			})
+//			
+//			var arr=["a","b","c"];
+//			var map=function(arr,call){
+//				var brr=[];
+//				for(var i=0;i<arr.length;i++){
+//					brr.push(call(arr[i],i));
+//				}
+//				return brr;
+//			};
+//			var p=map(arr,function(value,index){
+//				return value+100   ;
+//			})
+//			
+//			console.log(p);
+//			
+//			var arr=[1,2,3,4,5]
+//			var filter=function(arr,call){
+//				var brr=[];
+//				for(var i=0;i<arr.length;i++){
+//					if(  call(arr[i],arr) ){
+//						brr.push(  arr[i]  );
+//					}
+//				}
+//				return brr;
+//			};
+//			var item=filter(arr,function(value,arr){
+//				return value>2;
+//			});
+//		 	console.log(item)
+//		//有一个为false都为false;
+//		var arr1=[1,2,3,4,5];
+//		var every=function(arr1,call){
+//			for(var i=0;i<arr1.length;i++){
+//				if(!call(arr1[i])){
+//					return false;
+//				}
+//			}
+//			return true;
+//		}
+//		var forevery=every(arr1,function(value){
+//			return value>0;
+//		})
+//		console.log(forevery);
+//		//有一个为true都为true;
+//		var some=function(arr1,call){
+//			for(var i=0;i<arr1.length;i++){
+//				if(call(arr1[i])){
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
+//		var forsome=some(arr1,function(value){
+//			return value>1;
+//		})
+//		console.log(forsome);
+//		
+//		var arr1=[1,2,3,4,5];
+//		var reduce=function(arr1,call,val){
+//				var sum=0;
+//				if(typeof val=="undefined"){
+//					val=0;
+//				}
+//				for(var i=0;i<arr1.length;i++){
+//					console.log(sum,arr1[i]);
+//						sum+=  parseInt(call(val,arr1[i])   );
+//				}
+//				return sum;
+//			
+//			
+//		};
+//		var forreduce=reduce(arr1,function(oldmath,maths){
+//			return oldmath+maths;
+//		});
+//		console.log(forreduce);
+//		
+//		
+//		var arr1=[1,2,3,4,5];
+//		var reduceRight=function(arr1,call,val){
+//				var sum=0;
+//				if(typeof val=="undefined"){
+//					val=0;
+//				}
+//				for(var i=arr1.length-1;i>=0;i--){
+//					console.log(sum,arr1[i]);
+//						sum+=  parseInt(call(val,arr1[i])   );
+//						
+//				}
+//				return sum;
+//			
+//			
+//		};
+//		var forreduceRight=reduceRight(arr1,function(oldmath,maths){
+//			return oldmath+maths;
+//		});
+//		console.log(forreduceRight);
+//		var arr1=[1,2,3,4,5];
+//		var indexof=function(arr1,call,index){
+//			for(var i=0;i<arr1.length;i++){
+//				if(call(index,arr1[i])){
+//					return i;
+//				}
+//			}
+//			return i;
+//		}
+//		var forindexof=indexof(arr1,function(value,maths){
+//			return value==maths;
+//		},5)
+//		console.log(forindexof)
+//		
+//		var arr1=[1,2,3,4,5];
+//		var lastindexof=function(arr1,call,index){
+//			for(var i=arr1.length-1;i>=0;i--){
+//				if(call(index,arr1[i])){
+//					return i;
+//				}
+//			}
+//			return i;
+//		}
+//		var forlastindexof=lastindexof(arr1,function(value,maths){
+//			return value==maths;
+//		},1)
+//		console.log(forlastindexof);
+//		
+		
+		var arr1=[1,2,3,4,5];
+		
+		var _reduce = function(arr,callback,fristValue){
+			var newVal = "";
+			var i = index || 0;
+
+			if( fristValue ){
+				newVal = fristValue;
+				for( var i=0; i<arr.length; i++ ){
+					newVal = callback( newVal,arr[i],i,arr  );
+				}
+			}else{
+				newVal = arr[0];
+				for( var i=1; i<arr.length; i++ ){
+					newVal = callback( newVal,arr[i],i,arr  );
+				}
+			}
+			return newVal;
+		}
+		
+//		var ss = _reduce( arr1,function( oldVal, val, index, arr ){
+//			console.log( oldVal,val )
+//			return oldVal+val;
+//		})
+
+
+	
+		
+		Array.prototype._reduce = function(callback,fristValue){
+			var newVal = "";
+			console.log(this)
+			if( fristValue ){
+				newVal = fristValue;
+				for( var i=0; i<arr.length; i++ ){
+					newVal = callback( newVal,this[i],i,this  );
+				}
+			}else{
+				newVal = this[0];
+				for( var i=1; i<this.length; i++ ){
+					newVal = callback( newVal,this[i],i,this  );
+				}
+			}
+			return newVal;
+		}
+//		var ss = arr1._reduce( function( oldVal, val, index, arr ){
+//			console.log( oldVal,val )
+//			return oldVal+val;
+//		})
+//		
+//		console.log(  ss )
+		
+		
+		function every( arr, callback ){
+			
+			for( var i=0; i<arr.length; i++ ){
+				if( !callback( arr[i],i,arr ) ){
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+//		var ss2 = every( arr1, function( value, index ,arr ){
+//			console.log( value );
+//			return value > 2;
+//		} )
+//		console.log( ss2 )
+		
+		
+		function filter(  arr, callback ){
+			var newArr = [];
+			for( var i=0; i<arr.length; i++ ){
+				if( callback( arr[i],i,arr ) ){
+					newArr.push( arr[i] )
+				}
+			}
+			
+			return newArr;
+		}
+		
+//		var ss2 = filter( arr1, function( value, index ,arr ){
+//			return value > 2;
+//		} )
+//		
+//		console.log( ss2 );
+		
+		
+		function map(  arr, callback ){
+			var newArr = [];
+			for( var i=0; i<arr.length; i++ ){
+				newArr.push( callback( arr[i], i, arr ) )
+			}
+			
+			return newArr;
+		}
+		
+		var ss2 = map( arr1, function( value, index ,arr ){
+			return value+2;
+		} )
+		
+		console.log( ss2 );
+		
+		
+		</script>
+	</body>
+</html>
